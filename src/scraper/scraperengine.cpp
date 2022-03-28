@@ -56,7 +56,7 @@ namespace Scraper
                     links.push_back(mail);
                     continue;
                 }
-                auto local = Local { value };
+                auto local = Local { value, url };
                 if (local.HasValue()) {
                     links.push_back(local);
                     continue;

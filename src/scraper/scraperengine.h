@@ -19,5 +19,6 @@ namespace Scraper
         ~ScraperEngine();
 
         void Load(const std::string new_url);
+        std::vector<Link> GetLinks() { return links; }
     };
 }

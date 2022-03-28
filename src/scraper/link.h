@@ -12,7 +12,7 @@ namespace Scraper {
     public:
         Link(std::string value);
         ~Link();
-        std::string GetURL() { return url; }
+        virtual std::string GetURL() { return url; }
         bool HasValue() { return url.size() > 0; }
     };
 }

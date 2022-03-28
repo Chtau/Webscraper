@@ -4,9 +4,9 @@ namespace Scraper {
     class Local : public Link
     {
     private:
-        /* data */
+        std::string base_url;
     public:
-        Local(std::string value);
+        Local(std::string value, std::string baseUrl);
         ~Local();
     };
 }
