@@ -45,7 +45,23 @@ namespace Scraper
         {
             for (size_t i = 0; i < urls.size(); i++)
             {
-                std::cout << "Url:" << urls[i] << std::endl;
+                std::string value = urls[i];
+                auto anchor = Anchor{ value };
+                if (anchor.HasValue()) {
+                    links.push_back(anchor);
+                    continue;
+                }
+                auto mail = Mail{ value };
+                if (mail.HasValue()) {
+                    links.push_back(mail);
+                    continue;
+                }
+                auto local = Local { value };
+                if (local.HasValue()) {
+                    links.push_back(local);
+                    continue;
+                }
+                std::cout << "No Link value match!!! RAW:" << value << std::endl;
             }
         }
     }
