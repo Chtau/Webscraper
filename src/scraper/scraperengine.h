@@ -2,9 +2,7 @@
 
 #include <iostream>
 
-#include "anchor.h"
-#include "mail.h"
-#include "local.h"
+#include "page.h"
 
 namespace Scraper
 {
@@ -12,13 +10,12 @@ namespace Scraper
     class ScraperEngine
     {
     private:
-        std::string url;
-        std::vector<Link> links;
+        std::vector<Page> pages {};        
     public:
         ScraperEngine();
         ~ScraperEngine();
 
         void Load(const std::string new_url);
-        std::vector<Link> GetLinks() { return links; }
+        std::vector<Link> GetLinks();
     };
 }
