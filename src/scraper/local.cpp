@@ -13,6 +13,7 @@ namespace Scraper
             url = url.substr(0, url.size() - 1);
             url = url.substr(6, url.size());
 
+            raw_url = url;
             if (base_url.back() == '/')
             {
                 url = base_url.append(url);

@@ -18,12 +18,17 @@ namespace Scraper {
     {
     private:
         std::string url;
-        std::vector<Link> links;
+        std::vector<Anchor> anchors {};
+        std::vector<Local> locals {};
+        std::vector<Mail> mails {};
+        std::vector<Page> child_pages {};
+        int depth_level = 0;
     public:
-        Page(/* args */);
+        Page(int level = 0);
         ~Page();
 
         void Load(const std::string new_url);
-        std::vector<Link> GetLinks() { return links; }
+        std::vector<Link> GetLinks();
+        std::vector<Local> GetInternLinks();
     };
 }

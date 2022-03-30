@@ -3,8 +3,9 @@
 namespace Scraper
 {
     
-    Page::Page()
+    Page::Page(int level)
     {
+        depth_level = level;
     }
     
     Page::~Page()
@@ -38,17 +39,17 @@ namespace Scraper
                 std::string value = urls[i];
                 auto anchor = Anchor{ value };
                 if (anchor.HasValue()) {
-                    links.push_back(anchor);
+                    anchors.push_back(anchor);
                     continue;
                 }
                 auto mail = Mail{ value };
                 if (mail.HasValue()) {
-                    links.push_back(mail);
+                    mails.push_back(mail);
                     continue;
                 }
                 auto local = Local { value, url };
                 if (local.HasValue()) {
-                    links.push_back(local);
+                    locals.push_back(local);
                     continue;
                 }
                 std::cout << "No Link value match!!! RAW:" << value << std::endl;
@@ -56,4 +57,17 @@ namespace Scraper
         }
     }
 
+    std::vector<Local> Page::GetInternLinks()
+    {
+        return locals;
+    }
+
+    std::vector<Link> Page::GetLinks()
+    {
+        std::vector<Link> links {};
+        links.insert(links.end(), anchors.begin(), anchors.end());
+        links.insert(links.end(), mails.begin(), mails.end());
+        links.insert(links.end(), locals.begin(), locals.end());
+        return links;
+    }
 }

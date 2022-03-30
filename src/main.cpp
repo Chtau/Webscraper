@@ -7,12 +7,13 @@ int main(int argc, char *argv[])
     if (argc >= 2) {
         const std::string url = argv[1];
         Scraper::ScraperEngine engine { };
-        engine.Load(url);
+        engine.Load(url, 1);
 
         auto links = engine.GetLinks();
+        std::cout << "Total Urls discovered:" << links.size() << std::endl;
         for (size_t i = 0; i < links.size(); i++)
         {
-            std::cout << links[i].GetURL() << std::endl;
+            //std::cout << links[i].GetURL() << std::endl;
         }
         
     } else {
