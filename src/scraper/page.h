@@ -17,14 +17,16 @@ namespace Scraper {
     class Page
     {
     private:
+        std::string page_base_url;
         std::string url;
         std::vector<Anchor> anchors {};
         std::vector<Local> locals {};
         std::vector<Mail> mails {};
         std::vector<Page> child_pages {};
         int depth_level = 0;
+        int depth_max_level = 0;
     public:
-        Page(int level = 0);
+        Page(std::string base_url, int max_level = 0, int level = 0);
         ~Page();
 
         void Load(const std::string new_url);

@@ -2,16 +2,18 @@
 
 namespace Scraper
 {
-    
-    Page::Page(int level)
+
+    Page::Page(std::string base_url, int max_level, int level)
     {
+        page_base_url = base_url;
         depth_level = level;
+        depth_max_level = max_level;
     }
-    
+
     Page::~Page()
     {
     }
-    
+
     void Page::Load(std::string new_url)
     {
         url = new_url;
@@ -37,23 +39,41 @@ namespace Scraper
             for (size_t i = 0; i < urls.size(); i++)
             {
                 std::string value = urls[i];
-                auto anchor = Anchor{ value };
-                if (anchor.HasValue()) {
+                auto anchor = Anchor{value};
+                if (anchor.HasValue())
+                {
                     anchors.push_back(anchor);
                     continue;
                 }
-                auto mail = Mail{ value };
-                if (mail.HasValue()) {
+                auto mail = Mail{value};
+                if (mail.HasValue())
+                {
                     mails.push_back(mail);
                     continue;
                 }
-                auto local = Local { value, url };
-                if (local.HasValue()) {
+                auto local = Local{value, page_base_url};
+                if (local.HasValue())
+                {
                     locals.push_back(local);
                     continue;
                 }
                 std::cout << "No Link value match!!! RAW:" << value << std::endl;
             }
+
+            if (depth_max_level + 1 > depth_level)
+            {
+                const int next_level = depth_level + 1;
+                for (size_t i = 0; i < locals.size(); i++)
+                {
+                    auto page = Page{page_base_url, depth_max_level, next_level};
+                    page.Load(locals[i].GetURL());
+                    child_pages.push_back(page);
+                }
+            }
+        }
+        else
+        {
+            std::cout << "No urls on page:" << url << " content:" << content << std::endl;
         }
     }
 
@@ -64,7 +84,7 @@ namespace Scraper
 
     std::vector<Link> Page::GetLinks()
     {
-        std::vector<Link> links {};
+        std::vector<Link> links{};
         links.insert(links.end(), anchors.begin(), anchors.end());
         links.insert(links.end(), mails.begin(), mails.end());
         links.insert(links.end(), locals.begin(), locals.end());
