@@ -88,6 +88,12 @@ namespace Scraper
         links.insert(links.end(), anchors.begin(), anchors.end());
         links.insert(links.end(), mails.begin(), mails.end());
         links.insert(links.end(), locals.begin(), locals.end());
+        for (size_t i = 0; i < child_pages.size(); i++)
+        {
+            auto child_links = child_pages[i].GetLinks();
+            links.insert(links.end(), child_links.begin(), child_links.end());
+        }
+        
         return links;
     }
 }
