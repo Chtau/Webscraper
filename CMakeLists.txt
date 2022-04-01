@@ -4,6 +4,7 @@ project("Webscraper")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/out) 
 set(CMAKE_BUILD_TYPE Debug)
+#set(CMAKE_BUILD_TYPE Release)
 
 include(FindPkgConfig)
 pkg_check_modules(CURLPP REQUIRED curlpp)
