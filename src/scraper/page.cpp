@@ -60,7 +60,7 @@ namespace Scraper
                 std::cout << "No Link value match!!! RAW:" << value << std::endl;
             }
 
-            if (depth_max_level + 1 > depth_level)
+            if (depth_max_level > depth_level)
             {
                 const int next_level = depth_level + 1;
                 for (size_t i = 0; i < locals.size(); i++)
