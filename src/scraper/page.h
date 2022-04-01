@@ -25,8 +25,9 @@ namespace Scraper {
         std::vector<Page> child_pages {};
         int depth_level = 0;
         int depth_max_level = 0;
+        bool immediatley_output_links = false;
     public:
-        Page(std::string base_url, int max_level = 0, int level = 0);
+        Page(std::string base_url, const bool output_links_immediatley, int max_level = 0, int level = 0);
         ~Page();
 
         void Load(const std::string new_url);

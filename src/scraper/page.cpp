@@ -3,11 +3,12 @@
 namespace Scraper
 {
 
-    Page::Page(std::string base_url, int max_level, int level)
+    Page::Page(std::string base_url, const bool output_links_immediatley, int max_level, int level)
     {
         page_base_url = base_url;
         depth_level = level;
         depth_max_level = max_level;
+        immediatley_output_links = output_links_immediatley;
     }
 
     Page::~Page()
@@ -42,18 +43,30 @@ namespace Scraper
                 auto anchor = Anchor{value};
                 if (anchor.HasValue())
                 {
+                    if (immediatley_output_links)
+                    {
+                        std::cout << anchor.GetURL() << std::endl;
+                    }
                     anchors.push_back(anchor);
                     continue;
                 }
                 auto mail = Mail{value};
                 if (mail.HasValue())
                 {
+                    if (immediatley_output_links)
+                    {
+                        std::cout << anchor.GetURL() << std::endl;
+                    }
                     mails.push_back(mail);
                     continue;
                 }
                 auto local = Local{value, page_base_url};
                 if (local.HasValue())
                 {
+                    if (immediatley_output_links)
+                    {
+                        std::cout << anchor.GetURL() << std::endl;
+                    }
                     locals.push_back(local);
                     continue;
                 }
@@ -65,7 +78,7 @@ namespace Scraper
                 const int next_level = depth_level + 1;
                 for (size_t i = 0; i < locals.size(); i++)
                 {
-                    auto page = Page{page_base_url, depth_max_level, next_level};
+                    auto page = Page{page_base_url, immediatley_output_links, depth_max_level, next_level};
                     page.Load(locals[i].GetURL());
                     child_pages.push_back(page);
                 }

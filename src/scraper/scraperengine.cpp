@@ -13,9 +13,9 @@ namespace Scraper
     {
     }
 
-    void ScraperEngine::Load(const std::string new_url, const int discover_level_depth)
+    void ScraperEngine::Load(const std::string new_url, const bool output_links_immediatley, const int discover_level_depth)
     {
-        auto page = Page{new_url, discover_level_depth};
+        auto page = Page{new_url, output_links_immediatley, discover_level_depth};
         page.Load(new_url);
         pages.push_back(page);
     }

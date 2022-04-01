@@ -15,7 +15,7 @@ namespace Scraper
         ScraperEngine();
         ~ScraperEngine();
 
-        void Load(const std::string new_url, const int discover_level_depth = 0);
+        void Load(const std::string new_url, const bool output_links_immediatley = false, const int discover_level_depth = 0);
         std::vector<Link> GetLinks();
     };
 }
