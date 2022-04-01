@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
         
     } else {
         help();
-        //std::cout << "Missing argument to start scraping (First argument should be a valid url).\n";
     }
     return 0;
 }
