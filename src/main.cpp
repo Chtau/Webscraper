@@ -2,6 +2,19 @@
 
 #include "scraper/scraperengine.h"
 
+
+void help()
+{
+    std::cout << "Webscraper" << std::endl;
+    std::cout << "Version: 0.1.0" << std::endl;
+    std::cout << "Author:  Christoph Taucher <taucher.ch@gmail.com>" << std::endl;
+
+    std::cout << "Argument    Example                           Description" << std::endl;
+    std::cout << "1.)         https://news.ycombinator.com/     First argument must always be the url to scrape" << std::endl;
+    std::cout << "-l={number} -l=2                              Scraping depth, default is 0 which means only the provided page will be scraped" << std::endl;
+    std::cout << "-o          -o                                When provided all found links will immediatley be written to the output" << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc >= 2) {
@@ -37,7 +50,8 @@ int main(int argc, char *argv[])
         }
         
     } else {
-        std::cout << "Missing argument to start scraping (First argument should be a valid url).\n";
+        help();
+        //std::cout << "Missing argument to start scraping (First argument should be a valid url).\n";
     }
     return 0;
 }
